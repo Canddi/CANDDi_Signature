@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CANDDi Signature</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        padding: 3px;
+        width: 250px;
+      }
+      h1 {
+        font-size: 12pt;
+        margin-top: 0;
+      }
+      h2 {
+        font-weight: 200;
+        font-style: italic;
+        font-size: 8pt;
+      }
+      textarea {
+        resize: none;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Set your HTML signature:</h1>
+    <h2>This will appear at the bottom of emails</h2>
+    <textarea id="signature" rows="10" placeholder="<span>HTML goes here</span>"></textarea>
+    <label for="remove-gmail-sig">
+      <input type="checkbox" id="remove-gmail-sig">
+      Remove my current Gmail signature
+    </label>
+    <script src="/page_action/main.js"></script>
+  </body>
+</html>

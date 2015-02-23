@@ -1,0 +1,24 @@
+{
+  "name": "canddi-signature",
+  "version": "1.0.0",
+  "description": "A Chrome Extension that allows you to add a HTML signature to Gmail Emails",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Canddi/CANDDi_Signature"
+  },
+  "author": "CANDDi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Canddi/CANDDi_Signature/issues"
+  },
+  "homepage": "https://github.com/Canddi/CANDDi_Signature",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "matchdep": "^0.3.0"
+  }
+}
