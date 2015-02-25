@@ -11,16 +11,11 @@ var $dialogs,
 /* The HTML signature to add */
     signature,
 /* A unique ID for the current signature. Everytime the signature changes, this gets incremented */
-    signatureId = 1,
-/* Boolean whether to remove the Gmail set signature */
-    removeGmailSig = true,
-/* jQuery clone of the Gmail signature */
-    $gmailSigCopy;
+    signatureId = 1;
 
 /* Get the settings from localstorage */
-chrome.storage.local.get(['signature', 'removeGmailSig'], function(val) {
+chrome.storage.local.get(['signature'], function(val) {
   signature = val.signature;
-  removeGmailSig = val.removeGmailSig;
   bodyChange();
 });
 
@@ -29,10 +24,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
   if (changes.signature) {
     signature = changes.signature.newValue;
     signatureId++;
-    bodyChange();
-  }
-  if (changes.removeGmailSig) {
-    removeGmailSig = changes.removeGmailSig.newValue;
     bodyChange();
   }
 });
@@ -64,38 +55,15 @@ var checkForNewDialogs = function () {
   if ($editor.length === 0) {
     return;
   }
-  var $gmailSig = $editor.find('.gmail_signature');
+
   var $sig = $editor.find('#canddi-signature');
 
-  /* If we don't have a clone of the composer window yet, make one.
-     This is complex as some users may have the '--' disbaled, which changes
-     the structure of .gmail_signature */
-  /* TODO: There's probably a more effiecient way of doing this. */
-  if (!$gmailSigCopy || $gmailSigCopy.length === 0) {
-    if ($gmailSig.parent().hasClass('editable')) {
-      /* In '--' mode */
-      $gmailSig
-          .add($gmailSig.prev('div'))
-          .add($gmailSig.prev('br'));
-      $gmailSigCopy = $gmailSig.clone();
-    }
-    else {
-      /* '--' disabled mode */
-      $gmailSigCopy = $gmailSig.parent().clone();
-    }
-  }
+  $editor.find('.gmail_signature').remove();
 
-  if (removeGmailSig) {
-    /* Remove the Gmail signature */
-    $gmailSig.remove();
-  }
-  else if ($gmailSig.length === 0 && $sig.length > 0) {
-    /* No Gmail signature but the is a CANDDi signature. Add Gmail before CANDDi */
-    $sig.before($gmailSigCopy.clone());
-  }
-  else if ($gmailSig.length === 0) {
-    /* No Gmail signature and no CANDDi signature */
-    $editor.append($gmailSigCopy.clone());
+  /* Only fallback to horrible CSS selector if we have to (when a draft email) */
+  if ($sig.length === 0) {
+    var $sigDel = $editor.find('div[title="canddi-signature"]').not('#canddi-signature');
+    $sigDel.remove();
   }
 
   /* Signature has not been set by the user yet */
@@ -109,7 +77,8 @@ var checkForNewDialogs = function () {
   }
   else if ($sig.length === 0) {
     /* Else there is no signature. Apeend it to the composer */
-    $editor.append('<div id="canddi-signature" data-canddi-sig-id="' + signatureId + '">' + signature + '</div>');
+    $editor.append('<div title="canddi-signature" id="canddi-signature" data-canddi-sig-id="' +
+        signatureId + '">' + signature + '</div>');
   }
   else {
     /* There is a signature, but ids differ. Change the signature to the new one */
