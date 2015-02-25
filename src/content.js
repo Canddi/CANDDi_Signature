@@ -11,7 +11,9 @@ var $dialogs,
 /* The HTML signature to add */
     signature,
 /* A unique ID for the current signature. Everytime the signature changes, this gets incremented */
-    signatureId = 1;
+    signatureId = 1,
+/* jQuery object of the gmail signature, if it exists */
+    $gmailSig;
 
 /* Get the settings from localstorage */
 chrome.storage.local.get(['signature'], function(val) {
@@ -58,7 +60,17 @@ var checkForNewDialogs = function () {
 
   var $sig = $editor.find('#canddi-signature');
 
-  $editor.find('.gmail_signature').remove();
+  var $tempGSig = $editor.find('.gmail_signature');
+
+  /* If there's a signature to be set and there exists a gmail signature */
+  if (signature && $tempGSig.length) {
+    /* Detach the gmail signature */
+    $gmailSig = $tempGSig.detach();
+  }
+  else if ($tempGSig.length === 0 && $gmailSig) {
+    /* No signature to be set, and no gmail signature but we have one remembered, so add it to the editor */
+    $editor.append($gmailSig.clone());
+  }
 
   /* Only fallback to horrible CSS selector if we have to (when a draft email) */
   if ($sig.length === 0) {
