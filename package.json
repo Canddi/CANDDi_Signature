@@ -1,6 +1,6 @@
 {
   "name": "canddi-signature",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Chrome Extension that allows you to add a HTML signature to Gmail Emails",
   "scripts": {
     "test": "grunt"
