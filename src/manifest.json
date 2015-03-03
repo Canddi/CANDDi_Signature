@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "CANDDi Signature",
   "description": "A Chrome Extension that allows you to add a HTML signature to Gmail Emails",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "background": {
     "scripts": [
       "background.js"
