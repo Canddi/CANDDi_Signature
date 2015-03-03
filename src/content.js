@@ -67,7 +67,7 @@ var checkForNewDialogs = function () {
     /* Detach the gmail signature */
     $gmailSig = $tempGSig.detach();
   }
-  else if ($tempGSig.length === 0 && $gmailSig) {
+  else if (!signature && $tempGSig.length === 0 && $gmailSig) {
     /* No signature to be set, and no gmail signature but we have one remembered, so add it to the editor */
     $editor.append($gmailSig.clone());
   }
