@@ -58,7 +58,7 @@ var checkForNewDialogs = function () {
     return;
   }
 
-  var $sig = $editor.find('#canddi-signature');
+  var $sig = $editor.children('#canddi-signature');
 
   var $tempGSig = $editor.find('.gmail_signature');
 
@@ -74,7 +74,7 @@ var checkForNewDialogs = function () {
 
   /* Only fallback to horrible CSS selector if we have to (when a draft email) */
   if ($sig.length === 0) {
-    var $sigDel = $editor.find('div[title="canddi-signature"]').not('#canddi-signature');
+    var $sigDel = $editor.children('div[title="canddi-signature"]').not('#canddi-signature');
     $sigDel.remove();
   }
 
